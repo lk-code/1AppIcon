@@ -5,19 +5,11 @@
 //  Created by Lars Krämer on 17.09.24.
 //
 
-/*
-import Luminare
 import SwiftUI
 
-struct Icon: Hashable, LuminarePickerData {
+struct Icon: Hashable {
     var name: String
     var iconName: String
-    var unlockTime: Int
-    var unlockMessage: String?
-
-    var selectable: Bool {
-        IconManager.returnUnlockedIcons().contains(self)
-    }
 
     #if DEBUG
         static let all: [Icon] = [
@@ -36,20 +28,21 @@ struct Icon: Hashable, LuminarePickerData {
 extension Icon {
     static let developer = Icon(
         name: .init(localized: .init("Icon Name: Developer", defaultValue: "Developer")),
-        iconName: "AppIcon-Developer",
-        unlockTime: 0
+        iconName: "AppIcon-Developer"
     )
     
     static let folderdocuments = Icon(
-        name: .init(localized: .init("Icon Name: Summer", defaultValue: "Summer")),
-        iconName: "AppIcon-Summer",
-        unlockTime: 3000
+        name: .init(localized: .init("Icon Name: Documents Folder", defaultValue: "Documents Folder")),
+        iconName: "AppIcon-DocumentsFolder"
     )
     
     static let folderyellow = Icon(
-        name: .init(localized: .init("Icon Name: Summer", defaultValue: "Summer")),
-        iconName: "AppIcon-Summer",
-        unlockTime: 3000
+        name: .init(localized: .init("Icon Name: Yellow Folder", defaultValue: "Yellow Folder")),
+        iconName: "AppIcon-YellowFolder"
+    )
+    
+    static let folderyellow = Icon(
+        name: .init(localized: .init("Icon Name: Filled Container", defaultValue: "Filled Container")),
+        iconName: "AppIcon-FilledContainer"
     )
 }
-*/
