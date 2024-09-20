@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct _AppIconApp: App {
+    
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
         }
+        
     }
+    
 }

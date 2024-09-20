@@ -1,80 +1,41 @@
+//
+//  ContentView.swift
+//  1AppIcon
+//
+//  Created by Lars Krämer on 18.09.24.
+//
+
 import SwiftUI
 
 struct ContentView: View {
-    @State private var columns: Int = 3
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                // Background image with blur effect
-                Image("backgroundImage") // Replace with your image name
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+        
+        NavigationStack {
+            
+            HStack {
                 
-                // Blur effect overlay
-                BlurEffectView(material: .sidebar)
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Main content
-                ScrollView {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns), spacing: 10) {
-                        ForEach(Icon.all, id: \.name) { icon in
-                            VStack {
-                                Image(nsImage: NSImage(named: icon.iconName)!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width / CGFloat(columns) - 10)
-                                    .onTapGesture {
-                                        setAppIcon(iconName: icon.iconName)
-                                    }
-                                Text(icon.name)
-                                    .font(.caption)
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                VStack(spacing: 40) {
+                    
+                    NavigationLink(destination: IconSelectionView()) {
+                        Label("Icons Grid", systemImage: "app.dashed")
                     }
-                    .padding()
+                    
+                    NavigationLink(destination: AboutView()) {
+                        Label("About", systemImage: "info.circle")
+                    }
+                    
                 }
-                .onAppear {
-                    // Initialize the columns
-                    calculateColumns(width: geometry.size.width)
-                }
-                .onChange(of: geometry.size.width) { newWidth in
-                    // Recalculate the display columns
-                    calculateColumns(width: newWidth)
-                }
+                .navigationTitle("Main View")
+                
+                IconSelectionView()
+                
             }
+            
         }
+        
     }
     
-    // Calculate the display columns
-    private func calculateColumns(width: CGFloat) {
-        let minColumnWidth: CGFloat = 150 // Minimum size of a column
-        columns = max(1, Int(width / minColumnWidth)) // Calculation
-    }
-    
-    // Set app icon for macOS
-    private func setAppIcon(iconName: String) {
-        print("Setting app icon to: \(iconName)")
-        // Logic to change the app icon goes here
-    }
-}
-
-// SwiftUI view wrapper for NSVisualEffectView to apply blur effects
-struct BlurEffectView: NSViewRepresentable {
-    var material: NSVisualEffectView.Material
-    
-    func makeNSView(context: Context) -> NSVisualEffectView {
-        let view = NSVisualEffectView()
-        view.material = material
-        view.blendingMode = .behindWindow
-        view.state = .active
-        return view
-    }
-    
-    func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
-        nsView.material = material
-    }
 }
 
 #Preview {
