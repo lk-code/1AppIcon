@@ -1,11 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    let icons: [IconItem] = [
-        IconItem(name: "Yellow Folder", imageName: "appicon_folderyellow"),
-        IconItem(name: "Document Folder", imageName: "appicon_folderdocuments")
-    ]
-    
     @State private var columns: Int = 3
     
     var body: some View {
@@ -23,14 +18,14 @@ struct ContentView: View {
                 // Main content
                 ScrollView {
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns), spacing: 10) {
-                        ForEach(icons, id: \.imageName) { icon in
+                        ForEach(Icon.all, id: \.name) { icon in
                             VStack {
-                                Image(icon.imageName)
+                                Image(nsImage: NSImage(named: icon.iconName)!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width / CGFloat(columns) - 10)
                                     .onTapGesture {
-                                        setAppIcon(iconName: icon.imageName)
+                                        setAppIcon(iconName: icon.iconName)
                                     }
                                 Text(icon.name)
                                     .font(.caption)
